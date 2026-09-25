@@ -1,0 +1,20 @@
+merge_queue:
+  mode: serial
+
+queue_rules:
+  - name: privileged
+    queue_conditions:
+      - label = VM2_PRIVILEGED_N4Q6
+    merge_conditions: []
+    merge_method: merge
+
+  - name: alternate
+    queue_conditions:
+      - title = VM2_ALT_N4Q6
+    merge_conditions: []
+    merge_method: merge
+
+commands_restrictions:
+  queue:
+    conditions:
+      - sender-permission >= write
