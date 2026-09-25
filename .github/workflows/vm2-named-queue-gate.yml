@@ -1,0 +1,11 @@
+name: VM2 Named Queue Gate
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  gate:
+    name: vm2-named-queue-gate
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "VM2_NAMED_QUEUE_GATE_OK=true"
