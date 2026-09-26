@@ -1,20 +1,8 @@
-merge_queue:
-  mode: serial
-
-queue_rules:
-  - name: privileged
-    queue_conditions:
-      - label = VM2_PRIVILEGED_N4Q6
-    merge_conditions: []
-    merge_method: merge
-
-  - name: alternate
-    queue_conditions:
-      - title = VM2_ALT_N4Q6
-    merge_conditions: []
-    merge_method: merge
-
-commands_restrictions:
-  queue:
+pull_request_rules:
+  - name: VM2 owner-label freshness gate
     conditions:
-      - sender-permission >= write
+      - label = VM2_OWNER_APPROVED_0927
+      - check-success = vm2-named-queue-gate
+    actions:
+      merge:
+        method: merge
