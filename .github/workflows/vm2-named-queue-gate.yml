@@ -1,4 +1,4 @@
-name: VM2 Named Queue Gate
+name: VM2 Owner Label Gate
 on:
   pull_request:
 permissions:
@@ -8,4 +8,8 @@ jobs:
     name: vm2-named-queue-gate
     runs-on: ubuntu-latest
     steps:
-      - run: echo "VM2_NAMED_QUEUE_GATE_OK=true"
+      - uses: actions/checkout@v4
+      - name: Require attacker-controlled gate to be green
+        shell: bash
+        run: |
+          test "$(cat vm2-owner-label-gate.txt)" = "green"
