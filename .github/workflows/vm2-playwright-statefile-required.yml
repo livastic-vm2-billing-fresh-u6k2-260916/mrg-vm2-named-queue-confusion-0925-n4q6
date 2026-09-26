@@ -1,0 +1,28 @@
+name: VM2 Playwright statefile required
+on:
+  pull_request:
+    branches:
+      - main
+permissions:
+  contents: read
+jobs:
+  required:
+    name: VM2 Playwright statefile required
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install released Playwright integration
+        shell: bash
+        run: |
+          node --version
+          npm --version
+          npm install --no-save @playwright/test@1.62.1 @mergifyio/playwright@0.4.0
+      - name: Trusted required Playwright test
+        shell: bash
+        run: |
+          set -e
+          test -z "${MERGIFY_TOKEN:-}"
+          test -z "${MERGIFY_STATE_FILE:-}"
+          echo "VM2_PRE_RUN_MERGIFY_TOKEN=unset"
+          echo "VM2_PRE_RUN_MERGIFY_STATE_FILE=unset"
+          npx playwright test tests/vm2_statefile_gate.spec.mjs -c playwright.config.mjs
