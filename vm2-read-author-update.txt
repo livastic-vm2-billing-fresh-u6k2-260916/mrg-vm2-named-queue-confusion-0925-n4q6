@@ -1,0 +1,1 @@
+VM2 branch owned by B; PR will be authored by read-only A
