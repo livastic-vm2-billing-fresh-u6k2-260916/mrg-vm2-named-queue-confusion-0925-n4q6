@@ -1,4 +1,3 @@
-# vm2 assignee revocation freshness gate
 merge_queue:
   mode: serial
 
@@ -19,13 +18,3 @@ commands_restrictions:
   queue:
     conditions:
       - sender-permission >= write
-
-pull_request_rules:
-  - name: VM2 assignee revocation freshness gate
-    conditions:
-      - assignee = livastic-vm2-secondary-20260911
-      - title = VM2_ASSIGNEE_ARM_0927
-      - check-success = vm2-named-queue-gate
-    actions:
-      merge:
-        method: merge
