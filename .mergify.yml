@@ -1,4 +1,4 @@
-# vm2 headfresh setup synchronize
+# vm2 headfresh setup commit-count gate
 merge_queue:
   mode: serial
 
@@ -24,7 +24,7 @@ pull_request_rules:
   - name: VM2 owner-label fresh-head gate
     conditions:
       - label = VM2_PRIVILEGED_N4Q6
-      - files = vm2-headfresh-green.txt
+      - '#commits >= 2'
       - check-success = vm2-named-queue-gate
     actions:
       merge:
