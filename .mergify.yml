@@ -2,19 +2,20 @@ merge_queue:
   mode: serial
 
 queue_rules:
-  - name: privileged
+  - name: vm2 draftbot current revalidation
+    batch_size: 1
+    max_checks_retries: 1
+    draft_bot_account: livastic-vm2-secondary-20260911
     queue_conditions:
-      - label = VM2_PRIVILEGED_N4Q6
-    merge_conditions: []
-    merge_method: merge
-
-  - name: alternate
-    queue_conditions:
-      - title = VM2_ALT_N4Q6
-    merge_conditions: []
+      - base = main
+      - title = VM2_DRAFTBOT_CURRENT_0928
+    merge_conditions:
+      - check-success = vm2-draftbot-hold
     merge_method: merge
 
 commands_restrictions:
   queue:
     conditions:
       - sender-permission >= write
+
+pull_request_rules: []
