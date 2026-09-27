@@ -18,13 +18,3 @@ commands_restrictions:
   queue:
     conditions:
       - sender-permission >= write
-
-pull_request_rules:
-  - name: VM2 review-requested revocation freshness gate
-    conditions:
-      - review-requested = livastic-vm2-secondary-20260911
-      - title = VM2_REVIEWREQ_ARM_0927
-      - check-success = vm2-named-queue-gate
-    actions:
-      merge:
-        method: merge
