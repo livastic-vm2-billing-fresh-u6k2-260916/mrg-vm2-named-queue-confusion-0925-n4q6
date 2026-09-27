@@ -20,10 +20,10 @@ commands_restrictions:
       - sender-permission >= write
 
 pull_request_rules:
-  - name: VM2 milestone revocation freshness gate
+  - name: VM2 review-requested revocation freshness gate
     conditions:
-      - milestone = VM2_TRUSTED_MILESTONE_0927
-      - title = VM2_MILESTONE_ARM_0927
+      - review-requested = livastic-vm2-secondary-20260911
+      - title = VM2_REVIEWREQ_ARM_0927
       - check-success = vm2-named-queue-gate
     actions:
       merge:
