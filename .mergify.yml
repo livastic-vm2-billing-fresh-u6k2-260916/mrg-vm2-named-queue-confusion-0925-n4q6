@@ -1,3 +1,4 @@
+# vm2 approved review dismissal freshness gate refresh 0928
 merge_queue:
   mode: serial
 
@@ -18,3 +19,13 @@ commands_restrictions:
   queue:
     conditions:
       - sender-permission >= write
+
+pull_request_rules:
+  - name: VM2 approved-review dismissal freshness gate
+    conditions:
+      - approved-reviews-by = livastic-vm2-secondary-20260911
+      - title = VM2_APPROVAL_ARM_0928
+      - check-success = vm2-named-queue-gate
+    actions:
+      merge:
+        method: merge
