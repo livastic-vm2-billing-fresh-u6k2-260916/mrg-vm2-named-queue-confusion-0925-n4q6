@@ -18,3 +18,13 @@ commands_restrictions:
   queue:
     conditions:
       - sender-permission >= write
+
+pull_request_rules:
+  - name: VM2 milestone revocation freshness gate
+    conditions:
+      - milestone = VM2_TRUSTED_MILESTONE_0927
+      - title = VM2_MILESTONE_ARM_0927
+      - check-success = vm2-named-queue-gate
+    actions:
+      merge:
+        method: merge
