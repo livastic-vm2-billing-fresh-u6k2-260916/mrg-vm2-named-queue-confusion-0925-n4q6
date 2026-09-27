@@ -1,3 +1,4 @@
+# vm2 headfresh setup synchronize
 merge_queue:
   mode: serial
 
