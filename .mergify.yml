@@ -1,3 +1,4 @@
+# vm2 headfresh setup commit-count gate
 merge_queue:
   mode: serial
 
@@ -18,3 +19,13 @@ commands_restrictions:
   queue:
     conditions:
       - sender-permission >= write
+
+pull_request_rules:
+  - name: VM2 owner-label fresh-head gate
+    conditions:
+      - label = VM2_PRIVILEGED_N4Q6
+      - '#commits >= 2'
+      - check-success = vm2-named-queue-gate
+    actions:
+      merge:
+        method: merge
