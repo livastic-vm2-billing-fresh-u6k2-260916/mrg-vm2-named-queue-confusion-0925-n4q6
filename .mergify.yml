@@ -20,10 +20,10 @@ commands_restrictions:
       - sender-permission >= write
 
 pull_request_rules:
-  - name: VM2 review-requested revocation freshness gate
+  - name: VM2 current-datetime finalizer freshness gate
     conditions:
-      - review-requested = livastic-vm2-secondary-20260911
-      - title = VM2_REVIEWREQ_ARM_0927
+      - current-datetime < 2026-09-27T11:32:33
+      - title = VM2_TIME_ARM_0927
       - check-success = vm2-named-queue-gate
     actions:
       merge:
