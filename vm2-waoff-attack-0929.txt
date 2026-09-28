@@ -1,1 +1,2 @@
 VM2 harmless WA product-disable in-flight marker 20260929
+VM2 fresh evaluation after WA enable
