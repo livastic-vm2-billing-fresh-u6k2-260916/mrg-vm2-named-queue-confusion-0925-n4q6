@@ -4,3 +4,4 @@ positive-control refresh
 VM2 negative-label attack baseline 0928
 
 capgain attack initial 0929
+capgain pre-revocation sync 0929
