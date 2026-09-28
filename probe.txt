@@ -3,3 +3,4 @@ attacker synchronize
 positive-control refresh
 changes-request freshness baseline
 changes-request fresh head
+changes-request fresh evaluation trigger
