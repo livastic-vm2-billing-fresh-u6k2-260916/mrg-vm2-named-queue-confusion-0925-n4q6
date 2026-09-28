@@ -1,32 +1,15 @@
-# vm2 capability-gain stale-approval discriminator 0929
+# vm2 merge-queue product-disable in-flight finalizer discriminator 0929
 merge_queue:
   mode: serial
 
 queue_rules:
-  - name: privileged
-    queue_conditions:
-      - label = VM2_PRIVILEGED_N4Q6
-    merge_conditions: []
-    merge_method: merge
-
-  - name: alternate
-    queue_conditions:
-      - title = VM2_ALT_N4Q6
-    merge_conditions: []
+  - name: product-disable-finalizer
+    queue_conditions: []
+    merge_conditions:
+      - check-success = vm2-productoff-final-gate
     merge_method: merge
 
 commands_restrictions:
   queue:
     conditions:
       - sender-permission >= write
-
-pull_request_rules:
-  - name: VM2 revoked approval capability gain
-    conditions:
-      - label = VM2_PRIVILEGED_N4Q6
-      - current-datetime >= 2026-09-28T20:30:00Z
-      - title = VM2_CAPGAIN_ARM_0929
-      - check-success = vm2-named-queue-gate
-    actions:
-      merge:
-        method: merge
