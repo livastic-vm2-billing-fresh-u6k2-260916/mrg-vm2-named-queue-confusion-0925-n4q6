@@ -1,4 +1,4 @@
-# vm2 changes-request freshness gate 0928
+# vm2 negative-label freshness gate 0928
 merge_queue:
   mode: serial
 
@@ -21,10 +21,10 @@ commands_restrictions:
       - sender-permission >= write
 
 pull_request_rules:
-  - name: VM2 changes-request freshness gate
+  - name: VM2 negative-label freshness gate
     conditions:
-      - "-changes-requested-reviews-by = livastic-vm2-secondary-20260911"
-      - title = VM2_CHANGESREQ_ARM_0928
+      - -label = VM2_BLOCK_NEG_0928
+      - title = VM2_NEGLABEL_ARM_0928
       - check-success = vm2-named-queue-gate
     actions:
       merge:
