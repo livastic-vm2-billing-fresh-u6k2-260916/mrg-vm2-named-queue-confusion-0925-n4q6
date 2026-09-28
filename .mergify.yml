@@ -1,4 +1,4 @@
-# vm2 capability-gain stale-approval discriminator 0929
+# vm2 Workflow Automation product-disable finalizer discriminator 0929
 merge_queue:
   mode: serial
 
@@ -21,12 +21,11 @@ commands_restrictions:
       - sender-permission >= write
 
 pull_request_rules:
-  - name: VM2 revoked approval capability gain
+  - name: VM2 WA product-disable finalizer
     conditions:
-      - label = VM2_PRIVILEGED_N4Q6
-      - current-datetime >= 2026-09-28T20:30:00Z
-      - title = VM2_CAPGAIN_ARM_0929
+      - title = VM2_WA_PRODUCT_OFF_INFLIGHT_0929
       - check-success = vm2-named-queue-gate
+      - check-success = vm2-wa-productoff-final-gate
     actions:
       merge:
         method: merge
