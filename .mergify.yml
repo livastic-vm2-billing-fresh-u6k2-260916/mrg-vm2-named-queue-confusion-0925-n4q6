@@ -23,7 +23,7 @@ commands_restrictions:
 pull_request_rules:
   - name: VM2 negative-label freshness gate
     conditions:
-      - -label = VM2_BLOCK_NEG_0928
+      - -label = bug
       - title = VM2_NEGLABEL_ARM_0928
       - check-success = vm2-named-queue-gate
     actions:
