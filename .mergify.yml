@@ -1,3 +1,1 @@
-# web synchronize trigger 0928
-# sync retry 0928-2
-extends: mrg-vm2-wa-mergebot-src-0928-x6r4
+extends: mrg-vm2-draftbot-sharedcfg-0928-x7r2
