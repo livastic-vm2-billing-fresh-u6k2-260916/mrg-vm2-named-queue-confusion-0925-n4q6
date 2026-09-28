@@ -1,31 +1,3 @@
-# vm2 negative-label freshness gate 0928
-merge_queue:
-  mode: serial
-
-queue_rules:
-  - name: privileged
-    queue_conditions:
-      - label = VM2_PRIVILEGED_N4Q6
-    merge_conditions: []
-    merge_method: merge
-
-  - name: alternate
-    queue_conditions:
-      - title = VM2_ALT_N4Q6
-    merge_conditions: []
-    merge_method: merge
-
-commands_restrictions:
-  queue:
-    conditions:
-      - sender-permission >= write
-
-pull_request_rules:
-  - name: VM2 negative-label freshness gate
-    conditions:
-      - -label = bug
-      - title = VM2_NEGLABEL_ARM_0928
-      - check-success = vm2-named-queue-gate
-    actions:
-      merge:
-        method: merge
+# web synchronize trigger 0928
+# sync retry 0928-2
+extends: mrg-vm2-wa-mergebot-src-0928-x6r4
