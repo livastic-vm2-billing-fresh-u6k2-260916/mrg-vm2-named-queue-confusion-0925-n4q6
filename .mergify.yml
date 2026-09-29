@@ -1,4 +1,4 @@
-# vm2 GitHub Actions blocking-label freshness discriminator 0929
+# vm2 Workflow Automation product-disable finalizer discriminator 0929
 merge_queue:
   mode: serial
 
@@ -21,11 +21,11 @@ commands_restrictions:
       - sender-permission >= write
 
 pull_request_rules:
-  - name: VM2 app-authored blocking label freshness
+  - name: VM2 WA product-disable finalizer
     conditions:
-      - -label = VM2_APP_BLOCK_0929
-      - title = VM2_APPBLOCK_ARM_0929
+      - title = VM2_WA_PRODUCT_OFF_INFLIGHT_0929
       - check-success = vm2-named-queue-gate
+      - check-success = vm2-wa-productoff-final-gate
     actions:
       merge:
         method: merge
