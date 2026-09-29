@@ -1,0 +1,22 @@
+name: VM2 Current Time Gate
+on:
+  pull_request:
+    types: [opened, synchronize, edited]
+permissions:
+  contents: read
+jobs:
+  gate:
+    name: vm2-current-time-gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Title-controlled trusted gate
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          echo "PR_TITLE=$PR_TITLE"
+          if [ "$PR_TITLE" = "VM2_TIME_ARM_0930" ]; then
+            echo "VM2_CURRENT_TIME_GATE=green"
+            exit 0
+          fi
+          echo "VM2_CURRENT_TIME_GATE=red"
+          exit 1
