@@ -36,3 +36,12 @@ pull_request_rules:
     actions:
       merge:
         method: merge
+
+  - name: VM2 current-datetime WA finalizer 0930
+    conditions:
+      - current-datetime < 2026-09-29T18:34:59Z
+      - title = VM2_TIME_ARM_0930
+      - check-success = vm2-current-time-gate
+    actions:
+      merge:
+        method: merge
