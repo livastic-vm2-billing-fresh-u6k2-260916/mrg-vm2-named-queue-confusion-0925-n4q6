@@ -1,8 +1,15 @@
-# vm2 GitHub Actions blocking-label freshness discriminator 0929
+# vm2 Root22 delayed automatic final-gate discriminator 0929
 merge_queue:
   mode: serial
 
 queue_rules:
+  - name: product-disable-auto-finalizer
+    queue_conditions:
+      - title = VM2_MQ_PRODUCT_OFF_AUTOGATE_0929
+    merge_conditions:
+      - check-success = vm2-productoff-auto-final-gate
+    merge_method: merge
+
   - name: privileged
     queue_conditions:
       - label = VM2_PRIVILEGED_N4Q6
