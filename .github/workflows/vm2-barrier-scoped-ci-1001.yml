@@ -1,0 +1,43 @@
+name: VM2 Barrier Scoped CI 1001
+on:
+  pull_request:
+
+jobs:
+  detect-scopes:
+    name: vm2-barrier-detect-scopes
+    runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ fromJSON(steps.scopes.outputs.scopes).frontend }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Detect Mergify scopes
+        id: scopes
+        uses: Mergifyio/gha-mergify-ci@v25
+        with:
+          action: scopes
+          mergify_cli_version: 2026.9.16.1
+
+  frontend-security:
+    name: vm2-barrier-frontend-security
+    needs: detect-scopes
+    if: ${{ needs.detect-scopes.outputs.frontend == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Controlled security gate that must run for all-scope barriers
+        run: |
+          echo 'VM2_FRONTEND_SECURITY_EXECUTED=1'
+          exit 1
+
+  ci-gate:
+    name: vm2-barrier-ci-gate
+    if: ${{ !cancelled() }}
+    needs:
+      - detect-scopes
+      - frontend-security
+    runs-on: ubuntu-latest
+    steps:
+      - name: Aggregate scoped CI
+        uses: Mergifyio/gha-mergify-ci@v25
+        with:
+          action: wait-jobs
+          jobs: ${{ toJSON(needs) }}

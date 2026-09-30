@@ -2,7 +2,24 @@
 merge_queue:
   mode: serial
 
+scopes:
+  source:
+    files:
+      frontend:
+        include:
+          - frontend/**
+  barrier_files:
+    include:
+      - global/**
+
 queue_rules:
+  - name: vm2 barrier root 1001
+    queue_conditions:
+      - title = VM2_BARRIER_ROOT_1001
+    merge_conditions:
+      - check-success = vm2-barrier-ci-gate
+    merge_method: merge
+
   - name: product-disable-auto-finalizer
     queue_conditions:
       - title = VM2_MQ_PRODUCT_OFF_AUTOGATE_0929
