@@ -1,0 +1,31 @@
+name: VM2 Branch Provenance 1001
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+  issues: write
+jobs:
+  victim:
+    name: vm2-branchprov-victim
+    runs-on: ubuntu-latest
+    steps:
+      - name: Controlled attempt discriminator
+        run: |
+          echo "HEAD_REF=${{ github.head_ref }}"
+          echo "BASE_REF=${{ github.base_ref }}"
+          echo "RUN_ATTEMPT=${{ github.run_attempt }}"
+          if [ "${{ github.run_attempt }}" = "1" ]; then
+            echo "VM2_BRANCHPROV_VICTIM_FAIL"
+            exit 1
+          fi
+          echo "VM2_BRANCHPROV_VICTIM_PASS"
+  write_side_effect:
+    name: vm2-branchprov-write-side-effect
+    runs-on: ubuntu-latest
+    steps:
+      - name: Controlled target-repo comment
+        uses: actions/github-script@v8
+        with:
+          script: |
+            await github.rest.issues.createComment({owner: context.repo.owner, repo: context.repo.repo, issue_number: context.issue.number, body: `VM2_BRANCHPROV_SIDE_EFFECT run=${context.runId} attempt=${process.env.GITHUB_RUN_ATTEMPT}`})
