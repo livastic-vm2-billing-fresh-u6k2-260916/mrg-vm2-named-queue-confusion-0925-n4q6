@@ -1,0 +1,1 @@
+VM2 barrier root harmless marker 1001
