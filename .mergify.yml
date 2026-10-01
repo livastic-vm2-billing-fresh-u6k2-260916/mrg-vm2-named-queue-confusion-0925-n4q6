@@ -51,6 +51,15 @@ queue_rules:
     batch_size: 2
     autoqueue: true
 
+  - name: VM2 synth fork token boundary 1002
+    queue_conditions:
+      - base = vm2-synth-token-target-1002
+      - title = VM2_SYNTH_FORK_TOKEN_1002
+    merge_conditions:
+      - check-success = vm2-never-pass
+    merge_method: merge
+
+
 commands_restrictions:
   queue:
     conditions:
