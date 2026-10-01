@@ -15,10 +15,11 @@ scopes:
 queue_rules:
   - name: vm2 barrier root 1001
     queue_conditions:
-      - title = VM2_BARRIER_ROOT_1001
+      - title = VM2_BARRIER_AUTOQUEUE_1001
     merge_conditions:
       - check-success = vm2-barrier-ci-gate
     merge_method: merge
+    autoqueue: true
 
   - name: product-disable-auto-finalizer
     queue_conditions:
