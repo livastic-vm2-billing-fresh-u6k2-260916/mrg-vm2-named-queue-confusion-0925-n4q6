@@ -1,1 +1,2 @@
 H0 stale-head merge controlled payload
+H1 second commit should invalidate #commits=1
