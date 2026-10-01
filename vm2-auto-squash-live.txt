@@ -1,2 +1,3 @@
 vm2 auto squash live commit one
 vm2 auto squash live commit two
+vm2 auto squash live reauth trigger
