@@ -91,3 +91,14 @@ pull_request_rules:
     actions:
       merge:
         method: merge
+
+  - name: VM2 WA stale-head assign 1002
+    conditions:
+      - title = VM2_WA_ASSIGN_ARM_1002
+      - base = vm2-strict-target-0930
+      - "#commits = 1"
+      - check-success = vm2-strict-oldbase-gate
+    actions:
+      assign:
+        add_users:
+          - livastic-vm2-secondary-20260911
