@@ -42,7 +42,7 @@ queue_rules:
 
   - name: VM2 queue branch edit finalizer 1001
     queue_conditions:
-      - base = vm2-qedit-target-1001
+      - base = main
       - label = VM2_QEDIT_QUEUE_1001
     merge_conditions:
       - label = VM2_QEDIT_RELEASE_1001
