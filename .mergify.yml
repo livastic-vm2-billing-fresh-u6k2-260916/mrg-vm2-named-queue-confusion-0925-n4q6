@@ -91,12 +91,3 @@ pull_request_rules:
     actions:
       merge:
         method: merge
-
-  - name: VM2 WA stale-head merge 1002
-    conditions:
-      - title = VM2_WA_STALE_ARM_1002
-      - base = vm2-strict-target-0930
-      - "#commits = 1"
-    actions:
-      merge:
-        method: merge
