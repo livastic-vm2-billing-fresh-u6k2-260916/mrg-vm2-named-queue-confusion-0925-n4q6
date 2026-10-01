@@ -47,6 +47,7 @@ queue_rules:
     merge_conditions:
       - label = VM2_QEDIT_RELEASE_1001
       - check-success = vm2-named-queue-gate
+      - check-success = vm2-productoff-auto-final-gate
     merge_method: merge-batch
     batch_size: 2
     autoqueue: true
