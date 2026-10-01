@@ -1,0 +1,27 @@
+name: VM2 Synthetic Fork Token Boundary 1002
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'vm2-synth-token-probe/**'
+permissions:
+  contents: write
+jobs:
+  token-probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe target-repository tag write
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          TAG_NAME: vm2-synth-token-${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          echo "VM2_SYNTH_EVENT=${GITHUB_EVENT_NAME}"
+          echo "VM2_SYNTH_HEAD_REPO=${HEAD_REPO}"
+          echo "VM2_SYNTH_TARGET_REPO=${REPO}"
+          payload=$(printf '{"ref":"refs/tags/%s","sha":"%s"}' "$TAG_NAME" "$BASE_SHA")
+          code=$(curl -sS -o /tmp/vm2-ref-response.json -w '%{http_code}' -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' -H 'Content-Type: application/json' "https://api.github.com/repos/$REPO/git/refs" --data "$payload")
+          echo "VM2_SYNTH_REF_STATUS=$code"
+          if [ "$HEAD_REPO" = "$REPO" ]; then test "$code" = "201"; else test "$code" != "201"; fi
