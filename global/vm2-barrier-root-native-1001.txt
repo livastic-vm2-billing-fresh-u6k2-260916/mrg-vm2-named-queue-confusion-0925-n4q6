@@ -1,1 +1,0 @@
-VM2 barrier root native protected marker 1001
