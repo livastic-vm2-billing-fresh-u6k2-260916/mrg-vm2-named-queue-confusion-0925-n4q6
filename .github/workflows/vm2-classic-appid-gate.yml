@@ -1,0 +1,13 @@
+name: VM2 Classic AppId Wrong Producer 1001
+on:
+  pull_request:
+    branches:
+      - vm2-classic-appid-target-1001
+permissions:
+  contents: read
+jobs:
+  gate:
+    name: vm2-classic-appid-gate
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'VM2_CLASSIC_APPID_WRONG_PRODUCER=github-actions'
