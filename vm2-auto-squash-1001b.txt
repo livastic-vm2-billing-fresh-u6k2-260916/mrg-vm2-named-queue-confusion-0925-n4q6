@@ -1,1 +1,2 @@
 vm2 autosquash sentinel line 1
+vm2 autosquash sentinel line 2
