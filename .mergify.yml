@@ -49,6 +49,7 @@ queue_rules:
       - check-success = vm2-named-queue-gate
     merge_method: merge-batch
     batch_size: 2
+    autoqueue: true
 
 commands_restrictions:
   queue:
