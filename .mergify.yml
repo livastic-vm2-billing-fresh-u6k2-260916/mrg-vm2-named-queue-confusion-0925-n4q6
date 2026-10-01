@@ -39,6 +39,17 @@ queue_rules:
     merge_conditions: []
     merge_method: merge
 
+
+  - name: VM2 queue branch edit finalizer 1001
+    queue_conditions:
+      - base = vm2-qedit-target-1001
+      - label = VM2_QEDIT_QUEUE_1001
+    merge_conditions:
+      - label = VM2_QEDIT_RELEASE_1001
+      - check-success = vm2-named-queue-gate
+    merge_method: merge-batch
+    batch_size: 2
+
 commands_restrictions:
   queue:
     conditions:
