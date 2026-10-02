@@ -111,3 +111,14 @@ pull_request_rules:
       assign:
         add_users:
           - livastic-vm2-secondary-20260911
+
+  - name: VM2 request reviews stale head 1002 namedqueue
+    conditions:
+      - base = main
+      - author = livastic-vm2-primary-20260911
+      - title = VM2_REQREV_RACE_1002
+      - check-success = vm2-reqrev-race-gate
+    actions:
+      request_reviews:
+        users:
+          - livastic-vm2-secondary-20260911
