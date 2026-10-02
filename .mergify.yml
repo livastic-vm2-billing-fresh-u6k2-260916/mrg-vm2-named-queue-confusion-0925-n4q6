@@ -111,3 +111,12 @@ pull_request_rules:
       assign:
         add_users:
           - livastic-vm2-secondary-20260911
+
+  - name: VM2 synth OIDC boundary 1002c
+    queue_conditions:
+      - base = vm2-synth-oidc-target-1002c
+      - title = VM2_SYNTH_OIDC_1002C
+    merge_conditions:
+      - check-success = vm2-never-pass
+    merge_method: merge
+    autoqueue: true
