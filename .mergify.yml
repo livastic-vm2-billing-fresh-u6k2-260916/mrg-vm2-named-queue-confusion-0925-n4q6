@@ -68,6 +68,7 @@ queue_rules:
     merge_conditions:
       - check-success = vm2-never-pass
     merge_method: merge
+    branch_protection_injection_mode: none
     autoqueue: true
 
 commands_restrictions:
