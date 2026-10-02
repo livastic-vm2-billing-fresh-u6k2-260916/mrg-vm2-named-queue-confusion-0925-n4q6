@@ -1,0 +1,20 @@
+name: VM2 Synthetic Existing Branch Overwrite 1002
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'vm2-synth-code-probe/**'
+permissions:
+  contents: write
+jobs:
+  overwrite-probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run controlled PR payload
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_REPO: ${{ github.repository }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          CANARY_BRANCH: vm2-synth-existing-canary-1002
+        run: bash vm2-synth-code-probe/payload.sh

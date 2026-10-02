@@ -1,104 +1,15 @@
-# vm2 Root22 delayed automatic final-gate discriminator 0929
 merge_queue:
   mode: serial
-
-scopes:
-  source:
-    files:
-      frontend:
-        include:
-          - frontend/**
-  barrier_files:
-    include:
-      - global/**
-
 queue_rules:
-  - name: vm2 barrier root 1001
+  - name: VM2 synth existing branch overwrite 1002
     queue_conditions:
-      - title = VM2_BARRIER_ROOT_1001
-    merge_conditions:
-      - check-success = vm2-barrier-ci-gate
-    merge_method: merge
-
-  - name: product-disable-auto-finalizer
-    queue_conditions:
-      - title = VM2_MQ_PRODUCT_OFF_AUTOGATE_0929
-    merge_conditions:
-      - check-success = vm2-productoff-auto-final-gate
-    merge_method: merge
-
-  - name: privileged
-    queue_conditions:
-      - label = VM2_PRIVILEGED_N4Q6
-    merge_conditions: []
-    merge_method: merge
-
-  - name: alternate
-    queue_conditions:
-      - title = VM2_ALT_N4Q6
-    merge_conditions: []
-    merge_method: merge
-
-
-  - name: VM2 queue branch edit finalizer 1001
-    queue_conditions:
-      - base = main
-      - label = VM2_QEDIT_QUEUE_1001
-    merge_conditions:
-      - label = VM2_QEDIT_RELEASE_1001
-      - check-success = vm2-named-queue-gate
-    merge_method: merge-batch
-    batch_size: 2
-    autoqueue: true
-
-  - name: VM2 synth fork token boundary 1002
-    queue_conditions:
-      - base = vm2-synth-token-target-1002
-      - title = VM2_SYNTH_FORK_TOKEN_1002
+      - base = vm2-synth-overwrite-target-1002
+      - title = VM2_SYNTH_OVERWRITE_1002
     merge_conditions:
       - check-success = vm2-never-pass
     merge_method: merge
     autoqueue: true
-
-
 commands_restrictions:
   queue:
     conditions:
       - sender-permission >= write
-
-pull_request_rules:
-  - name: VM2 app-authored blocking label freshness
-    conditions:
-      - -label = VM2_APP_BLOCK_0929
-      - title = VM2_APPBLOCK_ARM_0929
-      - check-success = vm2-named-queue-gate
-    actions:
-      merge:
-        method: merge
-
-  - name: VM2 classic strict control 0930
-    conditions:
-      - title = VM2_STRICT_CONTROL_0930
-      - base = vm2-strict-control-0930
-    actions:
-      merge:
-        method: merge
-
-  - name: VM2 classic strict treatment 0930
-    conditions:
-      - title = VM2_STRICT_ARM_0930
-      - base = vm2-strict-target-0930
-    actions:
-      merge:
-        method: merge
-
-  - name: VM2 WA stale-head assign 1002
-    conditions:
-      - title = VM2_WA_ASSIGN_ARM_1002
-      - base = vm2-strict-target-0930
-      - "#commits = 1"
-      - check-success = vm2-strict-oldbase-gate
-    actions:
-      assign:
-        add_users:
-          - livastic-vm2-secondary-20260911
