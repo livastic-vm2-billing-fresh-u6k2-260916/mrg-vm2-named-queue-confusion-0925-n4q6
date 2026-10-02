@@ -70,6 +70,19 @@ queue_rules:
     merge_method: merge
     autoqueue: true
 
+  - name: VM2 conflict resolver member retarget org 1002
+    queue_conditions:
+      - base = vm2-cr-retarget-org-target-1002
+    merge_conditions:
+      - check-success = vm2-cr-retarget-org-hold-1002
+    batch_size: 2
+    batch_max_wait_time: 5 minutes
+    merge_method: merge-batch
+    conflict_resolvers:
+      - paths:
+          - frontend/vm2-cr-retarget-org-1002.txt
+        strategy: prefer-theirs
+
 commands_restrictions:
   queue:
     conditions:
@@ -122,3 +135,10 @@ pull_request_rules:
       request_reviews:
         teams:
           - vm2-rrace-reviewers-1002a
+  - name: VM2 conflict resolver retarget org autoqueue 1002
+    conditions:
+      - base = vm2-cr-retarget-org-target-1002
+    actions:
+      queue:
+        name: VM2 conflict resolver member retarget org 1002
+
