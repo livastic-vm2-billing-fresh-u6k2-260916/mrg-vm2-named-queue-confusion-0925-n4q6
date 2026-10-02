@@ -120,5 +120,5 @@ pull_request_rules:
       - check-success = vm2-reqrev-race-gate
     actions:
       request_reviews:
-        users:
-          - livastic-vm2-secondary-20260911
+        teams:
+          - vm2-rrace-reviewers-1002a
