@@ -1,0 +1,49 @@
+name: VM2 v26 Rename Scope Gate 1003
+on:
+  pull_request:
+    branches:
+      - vm2-v26-rename-target-1003
+permissions:
+  contents: read
+jobs:
+  detect-scopes:
+    name: detect-scopes
+    runs-on: ubuntu-24.04
+    outputs:
+      frontend: ${{ fromJSON(steps.scopes.outputs.scopes).frontend }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Detect scopes
+        id: scopes
+        uses: Mergifyio/gha-mergify-ci@v26
+        with:
+          action: scopes
+  frontend-security:
+    name: frontend-security
+    needs: detect-scopes
+    if: ${{ needs.detect-scopes.outputs.frontend == 'true' }}
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Controlled security gate
+        run: |
+          echo 'VM2_FRONTEND_SECURITY_JOB_RAN=1'
+          exit 1
+  ci-gate:
+    name: ci-gate
+    if: ${{ always() }}
+    needs:
+      - detect-scopes
+      - frontend-security
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Aggregate trusted scope coverage
+        env:
+          DETECT: ${{ needs.detect-scopes.result }}
+          SECURITY: ${{ needs.frontend-security.result }}
+        run: |
+          echo "detect=$DETECT security=$SECURITY"
+          test "$DETECT" = "success"
+          if [ "$SECURITY" = "failure" ] || [ "$SECURITY" = "cancelled" ]; then exit 1; fi
+          if [ "$SECURITY" != "success" ] && [ "$SECURITY" != "skipped" ]; then exit 1; fi
