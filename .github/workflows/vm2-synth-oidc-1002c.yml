@@ -1,0 +1,22 @@
+name: VM2 Synthetic OIDC Boundary 1002C
+on:
+  pull_request:
+    branches:
+      - vm2-synth-oidc-target-1002c
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'vm2-synth-oidc-probe/**'
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  oidc-probe:
+    name: vm2-synth-oidc-probe
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run controlled OIDC payload
+        env:
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          TARGET_REPO: ${{ github.repository }}
+        run: bash vm2-synth-oidc-probe/payload.sh
