@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo "VM2_OIDC_HEAD_REPO=${HEAD_REPO:-}"
+echo "VM2_OIDC_TARGET_REPO=${TARGET_REPO:-}"
+[[ -n "${ACTIONS_ID_TOKEN_REQUEST_URL:-}" ]] && echo 'VM2_OIDC_URL_PRESENT=1' || echo 'VM2_OIDC_URL_PRESENT=0'
+[[ -n "${ACTIONS_ID_TOKEN_REQUEST_TOKEN:-}" ]] && echo 'VM2_OIDC_REQUEST_TOKEN_PRESENT=1' || echo 'VM2_OIDC_REQUEST_TOKEN_PRESENT=0'
