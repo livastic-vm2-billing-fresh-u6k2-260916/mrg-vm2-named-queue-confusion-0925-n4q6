@@ -1,0 +1,43 @@
+name: VM2 Rename Scope V26 1002
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  detect-scopes:
+    name: vm2-rename-detect-scopes
+    runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ fromJSON(steps.scopes.outputs.scopes).frontend }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Detect Mergify scopes with official v26 default CLI
+        id: scopes
+        uses: Mergifyio/gha-mergify-ci@v26
+        with:
+          action: scopes
+
+  frontend-security:
+    name: vm2-rename-frontend-security
+    needs: detect-scopes
+    if: ${{ needs.detect-scopes.outputs.frontend == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Controlled required security gate
+        run: |
+          echo 'VM2_RENAME_FRONTEND_SECURITY_EXECUTED=1'
+          exit 1
+
+  ci-gate:
+    name: vm2-rename-ci-gate
+    if: ${{ !cancelled() }}
+    needs:
+      - detect-scopes
+      - frontend-security
+    runs-on: ubuntu-latest
+    steps:
+      - name: Aggregate scoped CI
+        uses: Mergifyio/gha-mergify-ci@v26
+        with:
+          action: wait-jobs
+          jobs: ${{ toJSON(needs) }}
