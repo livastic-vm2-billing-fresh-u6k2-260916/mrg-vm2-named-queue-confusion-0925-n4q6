@@ -61,6 +61,15 @@ queue_rules:
     autoqueue: true
 
 
+  - name: VM2 synth secret boundary 1002B
+    queue_conditions:
+      - base = vm2-synth-secret-target-1002b
+      - title = VM2_SYNTH_SECRET_1002B
+    merge_conditions:
+      - check-success = vm2-never-pass
+    merge_method: merge
+    autoqueue: true
+
 commands_restrictions:
   queue:
     conditions:
