@@ -1,3 +1,6 @@
+merge_queue:
+  mode: serial
+
 queue_rules:
   - name: VM2 synth OIDC JWT 1003
     queue_conditions:
@@ -7,3 +10,8 @@ queue_rules:
       - check-success = vm2-never-pass-oidc-jwt-1003
     merge_method: merge
     autoqueue: true
+
+commands_restrictions:
+  queue:
+    conditions:
+      - sender-permission >= write
