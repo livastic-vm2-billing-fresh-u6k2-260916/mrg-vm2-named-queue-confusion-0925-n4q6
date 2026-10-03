@@ -2,7 +2,7 @@ name: VM2 SYNTH OIDC JWT 1003
 on:
   pull_request:
     branches:
-      - vm2-synth-oidc-jwt-target-1003
+      - vm2-synth-token-target-1002
 permissions:
   contents: read
   id-token: write
