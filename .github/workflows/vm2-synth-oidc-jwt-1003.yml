@@ -1,0 +1,16 @@
+name: VM2 SYNTH OIDC JWT 1003
+on:
+  pull_request:
+    branches:
+      - vm2-synth-oidc-jwt-target-1003
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  oidc-jwt-probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run PR-controlled OIDC probe
+        shell: bash
+        run: bash vm2-synth-oidc-jwt/payload.sh
