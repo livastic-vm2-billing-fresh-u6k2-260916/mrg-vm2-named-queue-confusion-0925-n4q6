@@ -140,3 +140,5 @@ pull_request_rules:
     actions:
       merge:
         method: merge
+
+# VM2_CAPGLOB_CONFIG_SYNC_1004
