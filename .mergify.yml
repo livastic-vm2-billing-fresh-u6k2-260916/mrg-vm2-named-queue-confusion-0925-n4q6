@@ -8,6 +8,11 @@ scopes:
       frontend:
         include:
           - frontend/**
+      security-critical:
+        include:
+          - security/**
+  capacities:
+    "security-*": 1
   barrier_files:
     include:
       - global/**
@@ -74,6 +79,10 @@ commands_restrictions:
   queue:
     conditions:
       - sender-permission >= write
+  copy:
+    conditions:
+      - sender = livastic-vm2-primary-20260911
+      - scope != security-critical
 
 pull_request_rules:
   - name: VM2 app-authored blocking label freshness
