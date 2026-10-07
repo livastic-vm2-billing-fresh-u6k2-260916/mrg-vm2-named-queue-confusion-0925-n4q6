@@ -1,0 +1,12 @@
+name: VM2 setup native gate 1008
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  vm2-named-queue-gate:
+    if: github.event.pull_request.number == 129
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'VM2 controlled setup gate 1008'
