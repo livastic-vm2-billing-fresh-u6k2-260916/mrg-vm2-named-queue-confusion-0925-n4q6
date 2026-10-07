@@ -1,0 +1,16 @@
+name: VM2 first-party Mergify labels copier 1008
+on:
+  pull_request_target:
+    types: [opened]
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+jobs:
+  copy-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Mergifyio/gha-mergify-merge-queue-labels-copier@v6
+        with:
+          labels: vm2-privileged-ci-1008
+          additional-labels: ''
