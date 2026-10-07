@@ -1,0 +1,24 @@
+name: VM2 trusted label target-write sink 1008
+on:
+  pull_request_target:
+    types: [labeled]
+permissions:
+  contents: write
+jobs:
+  target-write:
+    if: github.event.label.name == 'vm2-privileged-ci-1008'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create target canary tag
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const ref = `refs/tags/vm2-labelcopier-impact-${pr.number}-1008`;
+            await github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref,
+              sha: pr.base.sha,
+            });
+            core.notice(`Created controlled target tag ${ref}`);
