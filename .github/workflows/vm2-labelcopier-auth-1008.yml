@@ -1,0 +1,19 @@
+name: VM2 Official Mergify Label Copier Auth 1008
+on:
+  pull_request_target:
+    types: [opened, edited]
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+jobs:
+  copier:
+    if: github.event.pull_request.number == 127
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Official Mergify merge-queue labels copier
+        uses: Mergifyio/gha-mergify-merge-queue-labels-copier@afe05531f8d5798ddad25b53dec94c722792f724
+        with:
+          labels: VM2_POLICY_LABEL_1008
+          additional-labels: ''
+          token: ${{ github.token }}
