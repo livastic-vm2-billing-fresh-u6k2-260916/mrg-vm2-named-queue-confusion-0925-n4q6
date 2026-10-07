@@ -8,6 +8,7 @@ permissions:
   pull-requests: write
 jobs:
   copier:
+    if: github.event.pull_request.number == 127
     runs-on: ubuntu-20.04
     steps:
       - name: Official Mergify merge-queue labels copier
