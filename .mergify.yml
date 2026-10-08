@@ -74,6 +74,7 @@ commands_restrictions:
   queue:
     conditions:
       - sender-permission >= write
+
 pull_request_rules:
   - name: VM2 app-authored blocking label freshness
     conditions:
