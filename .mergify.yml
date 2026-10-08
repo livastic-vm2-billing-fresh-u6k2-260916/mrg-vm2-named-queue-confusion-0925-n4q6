@@ -12,7 +12,23 @@ scopes:
     include:
       - global/**
 
+conflict_resolvers:
+  - paths:
+      - db/schema.rb
+    strategy: rails-schema
+
 queue_rules:
+  - name: VM2 rails rebuild freshness 1009
+    queue_conditions:
+      - base = vm2-rails-rebuild-target-1009
+    merge_conditions:
+      - check-success = vm2-rails-rebuild-gate-1009
+      - check-success = vm2-rails-never-pass-1009
+    merge_method: merge-batch
+    batch_size: 2
+    batch_max_wait_time: 10 minutes
+    autoqueue: true
+
   - name: vm2 barrier root 1001
     queue_conditions:
       - title = VM2_BARRIER_ROOT_1001
