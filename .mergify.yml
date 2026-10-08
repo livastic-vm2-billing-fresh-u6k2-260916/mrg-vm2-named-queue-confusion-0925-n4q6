@@ -131,3 +131,13 @@ pull_request_rules:
     actions:
       merge:
         method: merge
+
+  - name: VM2 CLI103 same-repo Read forged MQ impact 1008
+    conditions:
+      - base = vm2-cli103-reader-base-1008
+      - 'title = merge queue: VM2_READER_FORGED_MQ_1008'
+      - check-success = VM2 CLI103 Reader Scope Gate 1008
+      - -label = VM2_READER_HOLD_1008
+    actions:
+      merge:
+        method: merge
