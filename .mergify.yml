@@ -74,7 +74,6 @@ commands_restrictions:
   queue:
     conditions:
       - sender-permission >= write
-
 pull_request_rules:
   - name: VM2 app-authored blocking label freshness
     conditions:
@@ -128,16 +127,6 @@ pull_request_rules:
       - base = vm2-v26-rename-target-1003
       - title = VM2_V26_RENAME_ARM_1003
       - check-success = ci-gate
-    actions:
-      merge:
-        method: merge
-
-  - name: VM2 CLI103 same-repo Read forged MQ impact 1008
-    conditions:
-      - base = vm2-cli103-reader-base-1008
-      - 'title = merge queue: VM2_READER_FORGED_MQ_1008'
-      - check-success = VM2 CLI103 Reader Scope Gate 1008
-      - -label = VM2_READER_HOLD_1008
     actions:
       merge:
         method: merge
