@@ -12,6 +12,11 @@ scopes:
     include:
       - global/**
 
+conflict_resolvers:
+  - package-manager: npm
+    directories:
+      - /pkg-exporder-protected-1009
+
 queue_rules:
   - name: vm2 barrier root 1001
     queue_conditions:
@@ -68,6 +73,16 @@ queue_rules:
     merge_conditions:
       - check-success = vm2-never-pass
     merge_method: merge
+    autoqueue: true
+
+  - name: VM2 conditional exports protected 1009
+    queue_conditions:
+      - base = vm2-exporder-protected-target-1009
+    merge_conditions:
+      - check-success = vm2-named-queue-gate
+    merge_method: merge-batch
+    batch_size: 2
+    batch_max_wait_time: 10 minutes
     autoqueue: true
 
 commands_restrictions:
