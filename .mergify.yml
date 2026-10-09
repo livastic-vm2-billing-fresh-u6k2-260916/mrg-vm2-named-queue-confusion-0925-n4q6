@@ -1,4 +1,9 @@
 # vm2 Root22 delayed automatic final-gate discriminator 0929
+conflict_resolvers:
+  - package-manager: npm
+    directories:
+      - /vm2-exporder-1009b
+
 merge_queue:
   mode: serial
 
@@ -13,6 +18,16 @@ scopes:
       - global/**
 
 queue_rules:
+  - name: VM2 conditional exports external protected 1009B
+    queue_conditions:
+      - base = vm2-exporder-protected-1009b
+    merge_conditions:
+      - check-success = vm2-named-queue-gate
+    batch_size: 2
+    batch_max_wait_time: 10 minutes
+    merge_method: merge-batch
+    autoqueue: true
+
   - name: vm2 barrier root 1001
     queue_conditions:
       - title = VM2_BARRIER_ROOT_1001
