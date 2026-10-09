@@ -70,12 +70,28 @@ queue_rules:
     merge_method: merge
     autoqueue: true
 
+  - name: VM2 conditional exports external read 1009
+    queue_conditions:
+      - base = vm2-exporder-read-target-1009
+    merge_conditions:
+      - check-success = vm2-exporder-read-hold-1009
+    batch_size: 2
+    batch_max_wait_time: 10 minutes
+    merge_method: merge-batch
+
 commands_restrictions:
   queue:
     conditions:
       - sender-permission >= write
 
 pull_request_rules:
+  - name: VM2 conditional exports external read autoqueue 1009
+    conditions:
+      - base = vm2-exporder-read-target-1009
+    actions:
+      queue:
+        name: VM2 conditional exports external read 1009
+
   - name: VM2 app-authored blocking label freshness
     conditions:
       - -label = VM2_APP_BLOCK_0929
