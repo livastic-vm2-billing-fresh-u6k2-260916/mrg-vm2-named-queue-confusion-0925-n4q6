@@ -1,0 +1,16 @@
+{
+  "name": "vm2-eslint-crossproduct",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {"lint": "eslint bad.js"},
+  "devDependencies": {
+    "eslint": "8.57.1",
+    "eslint-plugin-security": "1.7.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {"node": true, "es2021": true},
+    "parserOptions": {"ecmaVersion": 2021},
+    "plugins": ["security"]
+  }
+}
