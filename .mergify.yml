@@ -1,4 +1,9 @@
 # vm2 Root22 delayed automatic final-gate discriminator 0929
+conflict_resolvers:
+  - package-manager: npm
+    directories:
+      - /pkg
+
 merge_queue:
   mode: serial
 
@@ -68,6 +73,16 @@ queue_rules:
     merge_conditions:
       - check-success = vm2-never-pass
     merge_method: merge
+    autoqueue: true
+
+  - name: VM2 npm eslint external protected 1010
+    queue_conditions:
+      - base = vm2-eslint-ext-target-1010
+    merge_conditions:
+      - check-success = vm2-eslint-security-1010
+    merge_method: merge-batch
+    batch_size: 2
+    batch_max_wait_time: 10 minutes
     autoqueue: true
 
 commands_restrictions:
