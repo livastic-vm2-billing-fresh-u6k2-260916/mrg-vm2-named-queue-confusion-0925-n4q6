@@ -1,0 +1,21 @@
+name: VM2 ESLint Security 1010
+on:
+  pull_request:
+    branches:
+      - vm2-eslint-ext-target-1010
+permissions:
+  contents: read
+jobs:
+  vm2-eslint-security-1010:
+    name: vm2-eslint-security-1010
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pkg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --include=dev --ignore-scripts --no-audit --no-fund
+      - run: npm run lint
