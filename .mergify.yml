@@ -1,4 +1,9 @@
 # vm2 Root22 delayed automatic final-gate discriminator 0929
+conflict_resolvers:
+  - package-manager: npm
+    directories:
+      - /pkg
+
 merge_queue:
   mode: serial
 
@@ -49,8 +54,6 @@ queue_rules:
       - check-success = vm2-named-queue-gate
     merge_method: merge-batch
     batch_size: 2
-    autoqueue: true
-
   - name: VM2 synth fork token boundary 1002
     queue_conditions:
       - base = vm2-synth-token-target-1002
@@ -58,9 +61,6 @@ queue_rules:
     merge_conditions:
       - check-success = vm2-never-pass
     merge_method: merge
-    autoqueue: true
-
-
   - name: VM2 synth secret boundary 1002B
     queue_conditions:
       - base = vm2-synth-secret-target-1002b
@@ -68,8 +68,14 @@ queue_rules:
     merge_conditions:
       - check-success = vm2-never-pass
     merge_method: merge
-    autoqueue: true
-
+  - name: VM2 npm eslint external protected 1010
+    queue_conditions:
+      - base = vm2-eslint-ext-target-1010
+    merge_conditions:
+      - check-success = vm2-eslint-security-1010
+    merge_method: merge-batch
+    batch_size: 2
+    batch_max_wait_time: 10 minutes
 commands_restrictions:
   queue:
     conditions:
@@ -131,3 +137,16 @@ pull_request_rules:
     actions:
       merge:
         method: merge
+merge_protections_settings:
+  auto_merge_conditions:
+    - or:
+        - and:
+            - base = main
+            - label = VM2_QEDIT_QUEUE_1001
+        - and:
+            - base = vm2-synth-token-target-1002
+            - title = VM2_SYNTH_FORK_TOKEN_1002
+        - and:
+            - base = vm2-synth-secret-target-1002b
+            - title = VM2_SYNTH_SECRET_1002B
+        - base = vm2-eslint-ext-target-1010
